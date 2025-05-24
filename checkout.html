@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <title>Send Money</title>
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .floating-label {
+        position: relative;
+      }
+
+      .floating-label input,
+      .floating-label textarea,
+      .floating-label select {
+        border: 1px solid #ccc;
+        padding: 1rem 1rem 0.5rem;
+        width: 100%;
+        border-radius: 0.5rem;
+        background: #fff;
+        transition: border 0.3s ease;
+      }
+
+      .floating-label label {
+        position: absolute;
+        top: 0.8rem;
+        left: 1rem;
+        font-size: 0.875rem;
+        color: #888;
+        transition: all 0.2s ease;
+        pointer-events: none;
+      }
+
+      .floating-label input:focus + label,
+      .floating-label input:not(:placeholder-shown) + label,
+      .floating-label textarea:focus + label,
+      .floating-label textarea:not(:placeholder-shown) + label,
+      .floating-label select:focus + label,
+      .floating-label select:not(:placeholder-shown) + label {
+        top: -0.6rem;
+        left: 0.8rem;
+        background: #fff;
+        padding: 0 0.25rem;
+        font-size: 0.75rem;
+        color: #2563eb;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white max-w-lg w-full p-8 rounded-3xl shadow-xl border border-blue-100">
+      <div class="mb-6 text-center">
+        <h1 class="text-3xl font-bold text-blue-700 mb-1">💸 Send Money</h1>
+        <p class="text-sm text-gray-500">Secure bank-to-bank transfer</p>
+      </div>
+
+      <form class="space-y-6">
+        <div class="floating-label">
+          <input type="text" id="recipient" placeholder=" " required />
+          <label for="recipient"><i class='bx bx-user'></i> Recipient Name</label>
+        </div>
+
+        <div class="floating-label">
+          <select id="bank" placeholder=" " required>
+            <option value="" hidden></option>
+            <option value="bofa">Bank of America</option>
+            <option value="chase">Chase</option>
+            <option value="wells">Wells Fargo</option>
+            <option value="paypal">PayPal</option>
+          </select>
+          <label for="bank"><i class='bx bx-bank'></i> Select Bank</label>
+        </div>
+
+        <div class="floating-label">
+          <input type="text" id="account" placeholder=" " required />
+          <label for="account"><i class='bx bx-credit-card'></i> Account Number</label>
+        </div>
+
+        <div class="floating-label">
+          <input type="number" id="amount" placeholder=" " required />
+          <label for="amount"><i class='bx bx-dollar'></i> Amount (USD)</label>
+        </div>
+
+        <div class="floating-label">
+          <textarea id="note" rows="2" placeholder=" "></textarea>
+          <label for="note"><i class='bx bx-edit'></i> Add a Note (optional)</label>
+        </div>
+
+        <div class="bg-blue-50 p-4 rounded-xl border text-sm text-gray-600">
+          <div class="flex justify-between mb-1">
+            <span>Transfer Fee</span>
+            <span>$2.50</span>
+          </div>
+          <div class="flex justify-between font-semibold text-blue-700">
+            <span>Total Deduction</span>
+            <span>$<span id="total-amount">--</span></span>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition duration-200"
+        >
+          <i class='bx bx-send'></i> Send Money
+        </button>
+      </form>
+    </div>
+
+    <script>
+      const amountInput = document.getElementById("amount");
+      const totalDisplay = document.getElementById("total-amount");
+
+      amountInput.addEventListener("input", () => {
+        const amount = parseFloat(amountInput.value);
+        if (!isNaN(amount)) {
+          const total = amount + 2.5;
+          totalDisplay.textContent = total.toFixed(2);
+        } else {
+          totalDisplay.textContent = "--";
+        }
+      });
+    </script>
+  </body>
+</html>
